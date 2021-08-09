@@ -21,8 +21,7 @@ input.forEach(blogEntry => {
     //open small
     output +=  "<small>";
     //convert date into something readable
-    blogEntry.date = new Date(blogEntry.date);
-    blogEntry.date = blogEntry.date.toString();
+    blogEntry.date = new Date(blogEntry.date).toString();
     //end small
     output +=  blogEntry.date + " | " + blogEntry.tags + "</small>";
     //open extract
