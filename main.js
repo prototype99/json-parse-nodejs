@@ -10,8 +10,6 @@ input.forEach(blogEntry => {
 input.sort(function(a, b){
     return b.date - a.date;
 });
-//open up stream
-let stream = fs.createWriteStream("output.htm");
 //start file
 let output = "<!DOCTYPE html><body><h1>The coolest blog to blog the blog in the history of blog</h1>";
 //populate file
@@ -36,6 +34,8 @@ input.forEach(blogEntry => {
 })
 //end file
 output +=  "</body></html>"
+//open up stream
+let stream = fs.createWriteStream("output.htm");
 //actually write the file
 stream.once('open', function(fd) {
     stream.end(output);
