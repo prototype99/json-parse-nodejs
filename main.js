@@ -2,6 +2,14 @@
 const fs = require("fs");
 //read file
 let input = require('./test.json');
+//convert dte for sorting
+input.forEach(blogEntry => {
+    blogEntry.date = Date.parse(blogEntry.date);
+})
+//sort data
+input.sort(function(a, b){
+    return b.date - a.date;
+});
 //open up stream
 let stream = fs.createWriteStream("output.htm");
 //start file
@@ -14,17 +22,21 @@ input.forEach(blogEntry => {
     output +=  blogEntry.title + "</h2>";
     //open small
     output +=  "<small>";
+    //convert date into something readable
+    blogEntry.date = new Date(blogEntry.date);
+    blogEntry.date = blogEntry.date.toString();
     //end small
     output +=  blogEntry.date + " | " + blogEntry.tags + "</small>";
     //open extract
     output +=  "<p>";
     //end extract
-    output +=  blogEntry.content + "</p>";
+    output +=  blogEntry.content.substring(0, 250) + "..." + "</p>";
     //end block
     output +=  "</div>";
 })
 //end file
 output +=  "</body></html>"
+//actually write the file
 stream.once('open', function(fd) {
     stream.end(output);
 });
