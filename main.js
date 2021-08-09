@@ -23,7 +23,7 @@ input.forEach(blogEntry => {
     //convert date into something readable
     blogEntry.date = new Date(blogEntry.date).toString();
     //end small
-    output +=  blogEntry.date + " | " + blogEntry.tags + "</small>";
+    output +=  blogEntry.date.substring(0, 15) + " | " + blogEntry.tags + "</small>";
     //open extract
     output +=  "<p>";
     //end extract
@@ -33,10 +33,10 @@ input.forEach(blogEntry => {
 })
 //end file
 output +=  "</body></html>"
-//open up stream
-let stream = fs.createWriteStream("output.htm");
+//open up indexStream
+let indexStream = fs.createWriteStream("index.htm");
 //actually write the file
-stream.once('open', function(fd) {
-    stream.end(output);
+indexStream.once('open', function(fd) {
+    indexStream.end(output);
 });
 console.log(output);
